@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian — The World's Marketplace Opens Today</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14173A;
+    --ink-2:#1E2250;
+    --paper:#F6F4EE;
+    --paper-2:#FFFFFF;
+    --signal:#3654FF;
+    --signal-dark:#2338C9;
+    --tangerine:#FF6B35;
+    --sun:#FFC53D;
+    --line:rgba(20,23,58,0.12);
+    --text:#1B1B1F;
+    --text-soft:#565A78;
+    --radius:18px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--text);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.02em;
+  }
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.02em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ===== reduced motion ===== */
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  /* ===== Marquee ticker ===== */
+  .ticker{
+    background:var(--ink);
+    color:var(--paper);
+    overflow:hidden;
+    white-space:nowrap;
+    padding:9px 0;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .ticker-track{
+    display:inline-flex;
+    animation:scroll 28s linear infinite;
+  }
+  .ticker span{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    font-weight:500;
+    letter-spacing:0.06em;
+    padding:0 28px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .ticker span::before{content:"✦"; color:var(--sun);}
+  @keyframes scroll{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+  }
+
+  /* ===== Header ===== */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(246,244,238,0.88);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+    max-width:1240px; margin:0 auto;
+    gap:24px;
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:22px;
+    display:flex; align-items:center; gap:8px;
+    flex-shrink:0;
+  }
+  .logo .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:var(--tangerine);
+    display:inline-block;
+  }
+  .nav-links{
+    display:flex; gap:32px;
+    font-size:14.5px; font-weight:500;
+    flex:1;
+    justify-content:center;
+  }
+  .nav-links a{
+    color:var(--text-soft);
+    transition:color .2s;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-actions{
+    display:flex; align-items:center; gap:18px;
+    flex-shrink:0;
+  }
+  .icon-btn{
+    width:38px;height:38px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);
+    background:var(--paper-2);
+    cursor:pointer;
+    transition:transform .15s, border-color .15s;
+  }
+  .icon-btn:hover{transform:translateY(-2px); border-color:var(--ink);}
+  .cart-badge{
+    position:relative;
+  }
+  .cart-badge::after{
+    content:"3";
+    position:absolute; top:-4px; right:-4px;
+    background:var(--tangerine); color:white;
+    font-size:9px; font-weight:700;
+    width:16px;height:16px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:13px 24px;
+    border-radius:100px;
+    font-weight:600; font-size:14.5px;
+    cursor:pointer; border:none;
+    transition:transform .18s ease, box-shadow .18s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(20,23,58,0.28);}
+  .btn-ghost{
+    background:transparent;
+    border:1.5px solid var(--ink);
+    color:var(--ink);
+  }
+  .btn-ghost:hover{background:var(--ink); color:var(--paper);}
+
+  @media (max-width: 900px){
+    .nav-links{display:none;}
+  }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    padding:76px 0 60px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:40px;
+    align-items:center;
+  }
+  @media (max-width:960px){
+    .hero-grid{grid-template-columns:1fr; }
+  }
+  .stamp{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:8px 16px 8px 10px;
+    border:1.5px dashed var(--ink);
+    border-radius:100px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:0.04em;
+    margin-bottom:28px;
+    background:var(--paper-2);
+    transform:rotate(-1.5deg);
+  }
+  .stamp .pulse{
+    width:8px;height:8px;border-radius:50%;
+    background:var(--tangerine);
+    box-shadow:0 0 0 rgba(255,107,53,0.5);
+    animation:pulse 1.8s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(255,107,53,0.45);}
+    70%{box-shadow:0 0 0 9px rgba(255,107,53,0);}
+    100%{box-shadow:0 0 0 0 rgba(255,107,53,0);}
+  }
+  .hero h1{
+    font-size:clamp(38px, 5.4vw, 66px);
+    line-height:1.03;
+    font-weight:700;
+    max-width:640px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--signal);
+    position:relative;
+  }
+  .hero p.lead{
+    margin-top:22px;
+    font-size:17.5px;
+    line-height:1.65;
+    color:var(--text-soft);
+    max-width:480px;
+  }
+  .hero-ctas{
+    display:flex; gap:14px; margin-top:34px; flex-wrap:wrap;
+  }
+  .hero-stats{
+    display:flex;
+    gap:0;
+    margin-top:52px;
+    border-top:1px solid var(--line);
+    padding-top:24px;
+    max-width:520px;
+  }
+  .hero-stats div{
+    flex:1;
+    padding-right:20px;
+  }
+  .hero-stats .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:26px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .hero-stats .lbl{
+    font-size:12px;
+    color:var(--text-soft);
+    margin-top:4px;
+    letter-spacing:0.01em;
+  }
+
+  /* Globe visual */
+  .globe-wrap{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+    min-height:440px;
+  }
+  .globe-wrap svg{ width:100%; max-width:480px; height:auto; }
+  .city-dot{ animation:blink 2.4s infinite; }
+  .city-dot:nth-child(2){ animation-delay:.4s; }
+  .city-dot:nth-child(3){ animation-delay:.8s; }
+  .city-dot:nth-child(4){ animation-delay:1.2s; }
+  .city-dot:nth-child(5){ animation-delay:1.6s; }
+  @keyframes blink{
+    0%,100%{opacity:1;}
+    50%{opacity:0.35;}
+  }
+  .route-path{
+    stroke-dasharray:6 7;
+    animation:dash 6s linear infinite;
+  }
+  @keyframes dash{ to{ stroke-dashoffset:-260; } }
+  .float-tag{
+    position:absolute;
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:9px 13px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    font-weight:500;
+    box-shadow:0 12px 30px rgba(20,23,58,0.10);
+    animation:floaty 5s ease-in-out infinite;
+  }
+  .float-tag.t1{ top:6%; left:2%; animation-delay:0s;}
+  .float-tag.t2{ bottom:10%; right:0%; animation-delay:1.4s;}
+  @keyframes floaty{
+    0%,100%{ transform:translateY(0);}
+    50%{ transform:translateY(-10px);}
+  }
+
+  /* ===== Offers strip ===== */
+  .offers{
+    padding:10px 0 64px;
+  }
+  .offers-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+  }
+  @media (max-width:900px){ .offers-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .offers-grid{grid-template-columns:1fr;} }
+  .offer-card{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:var(--radius);
+    padding:26px 22px;
+    position:relative;
+    overflow:hidden;
+    min-height:150px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .offer-card::before{
+    content:"";
+    position:absolute; top:-40%; right:-30%;
+    width:180px; height:180px; border-radius:50%;
+    background:radial-gradient(circle, var(--accent, var(--signal)) 0%, transparent 70%);
+    opacity:0.55;
+  }
+  .offer-card:nth-child(1){ --accent:#3654FF; }
+  .offer-card:nth-child(2){ --accent:#FF6B35; }
+  .offer-card:nth-child(3){ --accent:#FFC53D; }
+  .offer-card:nth-child(4){ --accent:#3654FF; }
+  .offer-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    opacity:0.65;
+    letter-spacing:0.06em;
+  }
+  .offer-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:23px;
+    font-weight:700;
+    margin-top:10px;
+    position:relative;
+    z-index:1;
+  }
+  .offer-sub{
+    font-size:12.5px;
+    opacity:0.72;
+    margin-top:8px;
+    position:relative; z-index:1;
+  }
+
+  /* ===== Section heads ===== */
+  .section{ padding:64px 0; }
+  .section-head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom:36px;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    font-weight:600;
+    color:var(--tangerine);
+    letter-spacing:0.08em;
+    margin-bottom:10px;
+    display:block;
+  }
+  .section-head h2{
+    font-size:clamp(26px,3.4vw,38px);
+    font-weight:700;
+  }
+  .section-head p{
+    color:var(--text-soft);
+    max-width:380px;
+    font-size:14.5px;
+    line-height:1.55;
+  }
+
+  /* ===== Categories ===== */
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  @media (max-width:900px){ .cat-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .cat-grid{grid-template-columns:1fr;} }
+  .cat-card{
+    border-radius:var(--radius);
+    padding:26px;
+    min-height:190px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .25s ease;
+    border:1px solid var(--line);
+  }
+  .cat-card:hover{ transform:translateY(-5px); }
+  .cat-card .cat-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:19px;
+  }
+  .cat-card .cat-count{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--text-soft);
+    margin-top:4px;
+  }
+  .cat-icon{ width:44px; height:44px; }
+  .c1{ background:linear-gradient(150deg,#DCE3FF, #EFF2FF); }
+  .c2{ background:linear-gradient(150deg,#FFE1D2, #FFF1E8); }
+  .c3{ background:linear-gradient(150deg,#FFF3D2, #FFFAEB); }
+  .c4{ background:linear-gradient(150deg,#DFF3E8, #EFFAF3); }
+  .c5{ background:linear-gradient(150deg,#E7DFFF, #F3EEFF); }
+  .c6{ background:linear-gradient(150deg,#FFE0EC, #FFF0F5); }
+
+  /* ===== Deals ===== */
+  .deal-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  @media (max-width:960px){ .deal-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .deal-grid{grid-template-columns:1fr;} }
+  .deal-card{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .deal-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 40px rgba(20,23,58,0.10);
+  }
+  .deal-media{
+    height:170px;
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .deal-media svg{ width:66%; height:66%; }
+  .deal-tag{
+    position:absolute; top:12px; left:12px;
+    background:var(--tangerine); color:white;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px; font-weight:600;
+    padding:5px 9px; border-radius:6px;
+  }
+  .deal-body{ padding:18px 18px 20px; }
+  .deal-ships{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    color:var(--text-soft);
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+  }
+  .deal-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:16.5px;
+    margin-top:6px;
+  }
+  .deal-price{
+    display:flex; align-items:baseline; gap:8px;
+    margin-top:10px;
+  }
+  .deal-price .now{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:17px;
+  }
+  .deal-price .was{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--text-soft);
+    text-decoration:line-through;
+  }
+  .m1{ background:linear-gradient(160deg,#3654FF, #7B90FF); }
+  .m2{ background:linear-gradient(160deg,#FF6B35, #FFA26B); }
+  .m3{ background:linear-gradient(160deg,#3EC28F, #8FE3C0); }
+  .m4{ background:linear-gradient(160deg,#8B5CF6, #C4A8FF); }
+
+  /* ===== Trust ===== */
+  .trust-section{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:28px;
+    margin:0 32px;
+    padding:60px 40px;
+  }
+  @media (max-width:640px){ .trust-section{ margin:0 20px; padding:44px 22px;} }
+  .trust-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:32px;
+    margin-top:40px;
+  }
+  @media (max-width:900px){ .trust-grid{grid-template-columns:repeat(2,1fr);} }
+  .trust-item .trust-icon{
+    width:38px;height:38px;
+    margin-bottom:16px;
+  }
+  .trust-item h3{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:16.5px;
+    font-weight:600;
+  }
+  .trust-item p{
+    font-size:13.5px;
+    color:rgba(246,244,238,0.62);
+    margin-top:8px;
+    line-height:1.55;
+  }
+  .trust-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .trust-head h2{
+    font-size:clamp(24px,3vw,32px);
+    max-width:460px;
+  }
+  .trust-head .eyebrow{ color:var(--sun); }
+  .reach-nums{
+    display:flex;
+    gap:34px;
+    flex-wrap:wrap;
+  }
+  .reach-nums div .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:28px; font-weight:700;
+  }
+  .reach-nums div .lbl{
+    font-size:11.5px;
+    color:rgba(246,244,238,0.55);
+    margin-top:2px;
+  }
+
+  /* ===== Testimonials ===== */
+  .testi-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+  }
+  @media (max-width:900px){ .testi-grid{grid-template-columns:1fr;} }
+  .testi-card{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px;
+  }
+  .testi-quote{
+    font-size:15px;
+    line-height:1.6;
+    color:var(--text);
+  }
+  .testi-who{
+    display:flex; align-items:center; gap:12px;
+    margin-top:20px;
+  }
+  .avatar{
+    width:38px;height:38px;border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700; font-size:14px;
+    color:white;
+  }
+  .a1{ background:#3654FF; }
+  .a2{ background:#FF6B35; }
+  .a3{ background:#3EC28F; }
+  .testi-name{ font-weight:600; font-size:13.5px; }
+  .testi-loc{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--text-soft);
+  }
+
+  /* ===== Newsletter / App ===== */
+  .cta-band{
+    display:grid;
+    grid-template-columns:1.2fr 0.8fr;
+    gap:30px;
+    align-items:center;
+    background:linear-gradient(135deg, #EFF2FF, #FFF3D2);
+    border-radius:28px;
+    padding:52px;
+    margin:0 32px;
+  }
+  @media (max-width:900px){ .cta-band{ grid-template-columns:1fr; padding:34px 26px;} }
+  @media (max-width:640px){ .cta-band{ margin:0 20px; } }
+  .cta-band h2{
+    font-size:clamp(24px,3vw,34px);
+    max-width:420px;
+  }
+  .cta-band p{
+    color:var(--text-soft);
+    margin-top:12px;
+    max-width:400px;
+    font-size:14.5px;
+  }
+  .form-row{
+    display:flex; gap:10px; margin-top:24px;
+    max-width:420px;
+  }
+  .form-row input{
+    flex:1;
+    padding:14px 16px;
+    border-radius:100px;
+    border:1.5px solid var(--line);
+    font-family:'Inter',sans-serif;
+    font-size:14px;
+    background:var(--paper-2);
+  }
+  .form-row input:focus{ outline:2px solid var(--signal); outline-offset:2px; }
+  .stamp-graphic{
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* ===== Footer ===== */
+  footer{
+    padding:70px 0 30px;
+  }
+  .footer-top{
+    display:grid;
+    grid-template-columns:1.4fr repeat(4, 1fr);
+    gap:30px;
+    padding-bottom:50px;
+    border-bottom:1px solid var(--line);
+  }
+  @media (max-width:900px){ .footer-top{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:560px){ .footer-top{ grid-template-columns:1fr; } }
+  .footer-top h4{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    letter-spacing:0.06em;
+    color:var(--text-soft);
+    margin-bottom:16px;
+    text-transform:uppercase;
+  }
+  .footer-top ul{ list-style:none; }
+  .footer-top li{ margin-bottom:11px; }
+  .footer-top a{
+    font-size:14px;
+    color:var(--text);
+    opacity:0.82;
+    transition:opacity .15s;
+  }
+  .footer-top a:hover{ opacity:1; color:var(--signal); }
+  .footer-bottom{
+    display:flex; justify-content:space-between; align-items:center;
+    padding-top:24px;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .footer-bottom p{ font-size:12.5px; color:var(--text-soft); }
+  .lang-select{
+    display:flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    border:1px solid var(--line);
+    padding:8px 14px;
+    border-radius:100px;
+  }
+  .socials{ display:flex; gap:12px; }
+  .socials a{
+    width:34px; height:34px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+  }
+
+  /* Reveal on scroll */
+  .reveal{
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  :focus-visible{ outline:2.5px solid var(--signal); outline-offset:3px; }
+</style>
+</head>
+<body>
+
+<!-- Ticker -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack">
+    <span>FREE WORLDWIDE SHIPPING · LAUNCH WEEK ONLY</span>
+    <span>30% OFF YOUR FIRST ORDER — CODE WELCOME30</span>
+    <span>NOW LIVE IN 190+ COUNTRIES</span>
+    <span>SAME-DAY DELIVERY IN 12 CITIES</span>
+    <span>40,000+ VERIFIED SELLERS ONBOARD</span>
+    <span>FREE WORLDWIDE SHIPPING · LAUNCH WEEK ONLY</span>
+    <span>30% OFF YOUR FIRST ORDER — CODE WELCOME30</span>
+    <span>NOW LIVE IN 190+ COUNTRIES</span>
+    <span>SAME-DAY DELIVERY IN 12 CITIES</span>
+    <span>40,000+ VERIFIED SELLERS ONBOARD</span>
+  </div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="nav">
+    <div class="logo"><span class="dot"></span>MERIDIAN</div>
+    <nav class="nav-links">
+      <a href="#categories">Categories</a>
+      <a href="#deals">Launch Deals</a>
+      <a href="#trust">Why Meridian</a>
+      <a href="#stories">Stories</a>
+      <a href="#join">Sell With Us</a>
+    </nav>
+    <div class="nav-actions">
+      <div class="icon-btn" title="Search" role="button" aria-label="Search">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <div class="icon-btn cart-badge" title="Cart" role="button" aria-label="Cart">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      </div>
+      <a class="btn btn-primary" href="#join">Start Shopping</a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="stamp"><span class="pulse"></span>LAUNCHING TODAY · LIVE WORLDWIDE</div>
+      <h1>One marketplace.<br>Every border, <em>open.</em></h1>
+      <p class="lead">Meridian connects 40,000 independent sellers across 190 countries to your door — in as little as 24 hours. We open our doors today, and every new member ships their first order free, anywhere on Earth.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="#deals">Shop launch deals</a>
+        <a class="btn btn-ghost" href="#trust">How it works</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="num">190+</div>
+          <div class="lbl">Countries served</div>
+        </div>
+        <div>
+          <div class="num">2.3M</div>
+          <div class="lbl">Products live</div>
+        </div>
+        <div>
+          <div class="num">24–48h</div>
+          <div class="lbl">Avg. delivery</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="globe-wrap">
+      <div class="float-tag t1">📦 Order #MR-88213 <br>→ In transit, Lagos</div>
+      <div class="float-tag t2">✓ Delivered · Osaka</div>
+      <svg viewBox="0 0 480 480" fill="none">
+        <ellipse cx="240" cy="240" rx="200" ry="200" stroke="#14173A" stroke-opacity="0.10" stroke-width="1.2"/>
+        <ellipse cx="240" cy="240" rx="200" ry="70" stroke="#14173A" stroke-opacity="0.14" stroke-width="1.2"/>
+        <ellipse cx="240" cy="240" rx="200" ry="140" stroke="#14173A" stroke-opacity="0.14" stroke-width="1.2"/>
+        <ellipse cx="240" cy="240" rx="70" ry="200" stroke="#14173A" stroke-opacity="0.14" stroke-width="1.2"/>
+        <ellipse cx="240" cy="240" rx="140" ry="200" stroke="#14173A" stroke-opacity="0.14" stroke-width="1.2"/>
+        <line x1="40" y1="240" x2="440" y2="240" stroke="#14173A" stroke-opacity="0.14" stroke-width="1.2"/>
+        <line x1="240" y1="40" x2="240" y2="440" stroke="#14173A" stroke-opacity="0.14" stroke-width="1.2"/>
+
+        <!-- route arcs -->
+        <path class="route-path" d="M120,150 Q240,60 360,180" stroke="#3654FF" stroke-width="2" fill="none"/>
+        <path class="route-path" d="M100,300 Q240,380 380,270" stroke="#FF6B35" stroke-width="2" fill="none"/>
+        <path class="route-path" d="M150,340 Q240,260 330,120" stroke="#3654FF" stroke-width="2" fill="none"/>
+
+        <!-- cities -->
+        <circle class="city-dot" cx="120" cy="150" r="5" fill="#FF6B35"/>
+        <circle class="city-dot" cx="360" cy="180" r="5" fill="#3654FF"/>
+        <circle class="city-dot" cx="100" cy="300" r="5" fill="#3654FF"/>
+        <circle class="city-dot" cx="380" cy="270" r="5" fill="#FFC53D"/>
+        <circle class="city-dot" cx="330" cy="120" r="5" fill="#3EC28F"/>
+        <circle class="city-dot" cx="150" cy="340" r="5" fill="#FF6B35"/>
+
+        <circle cx="240" cy="240" r="200" stroke="#14173A" stroke-opacity="0.16" stroke-width="1.5"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Offers -->
+<section class="offers">
+  <div class="wrap offers-grid">
+    <div class="offer-card reveal">
+      <div>
+        <div class="offer-eyebrow mono">MANIFEST 01</div>
+        <div class="offer-title">Free worldwide<br>shipping</div>
+      </div>
+      <div class="offer-sub">No minimum spend, launch week only</div>
+    </div>
+    <div class="offer-card reveal">
+      <div>
+        <div class="offer-eyebrow mono">MANIFEST 02</div>
+        <div class="offer-title">30% off your<br>first order</div>
+      </div>
+      <div class="offer-sub">Automatically applied at checkout</div>
+    </div>
+    <div class="offer-card reveal">
+      <div>
+        <div class="offer-eyebrow mono">MANIFEST 03</div>
+        <div class="offer-title">Pay in 4,<br>0% interest</div>
+      </div>
+      <div class="offer-sub">Split any order, no hidden fees</div>
+    </div>
+    <div class="offer-card reveal">
+      <div>
+        <div class="offer-eyebrow mono">MANIFEST 04</div>
+        <div class="offer-title">Refer a friend,<br>earn $20</div>
+      </div>
+      <div class="offer-sub">They get $20 too, on their first order</div>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="section" id="categories">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">CARGO MANIFEST</span>
+        <h2>Shop by category</h2>
+      </div>
+      <p>Every category, stocked by verified sellers from launch day — with local warehouses on six continents.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card c1 reveal">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="15" stroke="#3654FF" stroke-width="2.4"/><path d="M14 24a10 10 0 0 1 20 0" stroke="#3654FF" stroke-width="2.4" stroke-linecap="round"/><circle cx="14" cy="26" r="3.4" fill="#3654FF"/><circle cx="34" cy="26" r="3.4" fill="#3654FF"/></svg>
+        <div>
+          <div class="cat-name">Electronics &amp; Tech</div>
+          <div class="cat-count">318,204 listings</div>
+        </div>
+      </div>
+      <div class="cat-card c2 reveal">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><path d="M18 10l6 5 6-5 5 6-4 4 3 15H14l3-15-4-4z" stroke="#FF6B35" stroke-width="2.4" stroke-linejoin="round" fill="none"/></svg>
+        <div>
+          <div class="cat-name">Fashion &amp; Apparel</div>
+          <div class="cat-count">542,910 listings</div>
+        </div>
+      </div>
+      <div class="cat-card c3 reveal">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><path d="M24 8l16 11v21H8V19z" stroke="#D69A00" stroke-width="2.4" stroke-linejoin="round"/><rect x="20" y="28" width="8" height="12" stroke="#D69A00" stroke-width="2.2"/></svg>
+        <div>
+          <div class="cat-name">Home &amp; Living</div>
+          <div class="cat-count">276,318 listings</div>
+        </div>
+      </div>
+      <div class="cat-card c4 reveal">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><rect x="17" y="8" width="14" height="10" rx="4" stroke="#2E9E68" stroke-width="2.2"/><path d="M24 18v22" stroke="#2E9E68" stroke-width="2.2"/><path d="M24 26c-6 0-10 4-10 9M24 26c6 0 10 4 10 9" stroke="#2E9E68" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <div>
+          <div class="cat-name">Beauty &amp; Wellness</div>
+          <div class="cat-count">189,027 listings</div>
+        </div>
+      </div>
+      <div class="cat-card c5 reveal">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><circle cx="14" cy="14" r="5" stroke="#7C4DFF" stroke-width="2.2"/><circle cx="34" cy="34" r="5" stroke="#7C4DFF" stroke-width="2.2"/><path d="M18 18l12 12" stroke="#7C4DFF" stroke-width="2.2"/></svg>
+        <div>
+          <div class="cat-name">Sports &amp; Outdoors</div>
+          <div class="cat-count">204,551 listings</div>
+        </div>
+      </div>
+      <div class="cat-card c6 reveal">
+        <svg class="cat-icon" viewBox="0 0 48 48" fill="none"><rect x="9" y="9" width="13" height="13" rx="3" stroke="#E0507F" stroke-width="2.2"/><rect x="26" y="9" width="13" height="13" rx="3" stroke="#E0507F" stroke-width="2.2"/><rect x="9" y="26" width="13" height="13" rx="3" stroke="#E0507F" stroke-width="2.2"/><rect x="26" y="26" width="13" height="13" rx="3" stroke="#E0507F" stroke-width="2.2"/></svg>
+        <div>
+          <div class="cat-name">Kids &amp; Toys</div>
+          <div class="cat-count">98,442 listings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Deals -->
+<section class="section" id="deals">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">TRACKING: LAUNCH-WEEK</span>
+        <h2>Featured launch deals</h2>
+      </div>
+      <p>A hand-picked manifest of first-week favorites, discounted and ready to ship today.</p>
+    </div>
+    <div class="deal-grid">
+      <div class="deal-card reveal">
+        <div class="deal-media m1">
+          <span class="deal-tag">-34%</span>
+          <svg viewBox="0 0 100 100" fill="none"><path d="M50 20a30 30 0 0 0-30 30v14" stroke="white" stroke-width="4" stroke-linecap="round"/><path d="M50 20a30 30 0 0 1 30 30v14" stroke="white" stroke-width="4" stroke-linecap="round"/><rect x="14" y="60" width="14" height="20" rx="6" fill="white"/><rect x="72" y="60" width="14" height="20" rx="6" fill="white"/></svg>
+        </div>
+        <div class="deal-body">
+          <div class="deal-ships mono">Ships from Seoul</div>
+          <div class="deal-name">Aurora Wireless Earbuds</div>
+          <div class="deal-price"><span class="now mono">$59</span><span class="was mono">$89</span></div>
+        </div>
+      </div>
+      <div class="deal-card reveal">
+        <div class="deal-media m2">
+          <span class="deal-tag">-30%</span>
+          <svg viewBox="0 0 100 100" fill="none"><rect x="18" y="30" width="64" height="46" rx="6" stroke="white" stroke-width="4"/><path d="M18 44h64" stroke="white" stroke-width="4"/><path d="M30 30v-6a6 6 0 0 1 6-6h28a6 6 0 0 1 6 6v6" stroke="white" stroke-width="4"/></svg>
+        </div>
+        <div class="deal-body">
+          <div class="deal-ships mono">Ships from Copenhagen</div>
+          <div class="deal-name">Nordic Wool Throw Blanket</div>
+          <div class="deal-price"><span class="now mono">$42</span><span class="was mono">$60</span></div>
+        </div>
+      </div>
+      <div class="deal-card reveal">
+        <div class="deal-media m3">
+          <span class="deal-tag">-30%</span>
+          <svg viewBox="0 0 100 100" fill="none"><path d="M30 46h40l-6 34H36z" stroke="white" stroke-width="4" stroke-linejoin="round"/><path d="M38 46c0-10 5-24 12-24s12 14 12 24" stroke="white" stroke-width="4"/></svg>
+        </div>
+        <div class="deal-body">
+          <div class="deal-ships mono">Ships from Lisbon</div>
+          <div class="deal-name">Terra Ceramic Planter Set</div>
+          <div class="deal-price"><span class="now mono">$28</span><span class="was mono">$40</span></div>
+        </div>
+      </div>
+      <div class="deal-card reveal">
+        <div class="deal-media m4">
+          <span class="deal-tag">-29%</span>
+          <svg viewBox="0 0 100 100" fill="none"><rect x="20" y="38" width="60" height="38" rx="7" stroke="white" stroke-width="4"/><path d="M36 38v-8a14 14 0 0 1 28 0v8" stroke="white" stroke-width="4"/></svg>
+        </div>
+        <div class="deal-body">
+          <div class="deal-ships mono">Ships from Florence</div>
+          <div class="deal-name">Voyage Leather Weekender</div>
+          <div class="deal-price"><span class="now mono">$128</span><span class="was mono">$180</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trust -->
+<section class="section" id="trust">
+  <div class="wrap">
+    <div class="trust-section reveal">
+      <div class="trust-head">
+        <div>
+          <span class="eyebrow">WHY MERIDIAN</span>
+          <h2>Built for a marketplace without borders.</h2>
+        </div>
+        <div class="reach-nums">
+          <div><div class="num">190+</div><div class="lbl">Countries</div></div>
+          <div><div class="num">40K+</div><div class="lbl">Sellers</div></div>
+          <div><div class="num">24/7</div><div class="lbl">Support</div></div>
+        </div>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="15" stroke="#FFC53D" stroke-width="2.2"/><path d="M14 24l7 7 13-14" stroke="#FFC53D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Verified global sellers</h3>
+          <p>Every seller is identity-checked and rated before their first listing goes live.</p>
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 48 48" fill="none"><path d="M24 6l16 6v12c0 11-7 18-16 20-9-2-16-9-16-20V12z" stroke="#3654FF" stroke-width="2.2"/></svg>
+          <h3>Buyer protection guarantee</h3>
+          <p>Full refund if an order arrives damaged, late, or not as described — no questions.</p>
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="15" stroke="#FF6B35" stroke-width="2.2"/><path d="M24 15v9l6 5" stroke="#FF6B35" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <h3>24/7 multilingual support</h3>
+          <p>Real humans, in 18 languages, resolving issues in under two hours on average.</p>
+        </div>
+        <div class="trust-item">
+          <svg class="trust-icon" viewBox="0 0 48 48" fill="none"><path d="M24 6c8 6 14 10 14 19a14 14 0 0 1-28 0c0-9 6-13 14-19z" stroke="#3EC28F" stroke-width="2.2"/></svg>
+          <h3>Carbon-neutral delivery</h3>
+          <p>Every shipment offset at checkout, at no extra cost to you, from day one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="section" id="stories">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <span class="eyebrow">EARLY MANIFEST</span>
+        <h2>From our first customers</h2>
+      </div>
+      <p>Meridian opened its warehouses quietly to a few thousand early members last month. Here's what shipped.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <p class="testi-quote">"I ordered a lens from a seller in Tokyo and it cleared customs before I finished my coffee the next morning. I didn't think that was possible."</p>
+        <div class="testi-who">
+          <div class="avatar a1">A.</div>
+          <div>
+            <div class="testi-name">Amara O.</div>
+            <div class="testi-loc mono">NAIROBI, KE</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <p class="testi-quote">"The tracking page reads like an airport departures board. It sounds small, but knowing exactly where my package is made the wait painless."</p>
+        <div class="testi-who">
+          <div class="avatar a2">Y.</div>
+          <div>
+            <div class="testi-name">Yuki T.</div>
+            <div class="testi-loc mono">OSAKA, JP</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <p class="testi-quote">"Refund landed in my account nine minutes after I reported a damaged box. That's faster than most local stores I've dealt with."</p>
+        <div class="testi-who">
+          <div class="avatar a3">C.</div>
+          <div>
+            <div class="testi-name">Camila R.</div>
+            <div class="testi-loc mono">SÃO PAULO, BR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="section" id="join">
+  <div class="cta-band reveal">
+    <div>
+      <span class="eyebrow">STAY ON MANIFEST</span>
+      <h2>Get the app. Track your world.</h2>
+      <p>Real-time tracking, launch-day drops, and members-only pricing — straight to your pocket. First order still ships free.</p>
+      <form class="form-row" onsubmit="return false;">
+        <input type="email" placeholder="you@email.com" aria-label="Email address" required>
+        <button class="btn btn-primary" type="submit">Notify me</button>
+      </form>
+    </div>
+    <div class="stamp-graphic">
+      <svg width="220" height="220" viewBox="0 0 220 220" fill="none">
+        <circle cx="110" cy="110" r="95" stroke="#14173A" stroke-width="2" stroke-dasharray="4 5"/>
+        <circle cx="110" cy="110" r="76" stroke="#14173A" stroke-width="1.4"/>
+        <text x="110" y="70" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#14173A" letter-spacing="3">MERIDIAN · EST 2026</text>
+        <text x="110" y="118" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="24" fill="#14173A">WORLDWIDE</text>
+        <text x="110" y="140" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" fill="#FF6B35" letter-spacing="2">LAUNCH DAY</text>
+        <text x="110" y="168" text-anchor="middle" font-family="IBM Plex Mono" font-size="10" fill="#14173A" letter-spacing="3">CLEARED FOR DELIVERY</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="logo"><span class="dot"></span>MERIDIAN</div>
+        <p style="margin-top:14px; font-size:13.5px; color:var(--text-soft); max-width:240px; line-height:1.6;">The world's marketplace. 190+ countries, one manifest.</p>
+        <div class="socials" style="margin-top:20px;">
+          <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/></svg></a>
+          <a href="#" aria-label="X"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13c0-2 2-4 4.5-4S18 11 18 13v8"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#categories">Electronics</a></li>
+          <li><a href="#categories">Fashion</a></li>
+          <li><a href="#categories">Home &amp; Living</a></li>
+          <li><a href="#categories">Beauty</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Sell</h4>
+        <ul>
+          <li><a href="#">Become a seller</a></li>
+          <li><a href="#">Seller hub</a></li>
+          <li><a href="#">Fees &amp; pricing</a></li>
+          <li><a href="#">Success stories</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Sustainability</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Help center</a></li>
+          <li><a href="#">Shipping &amp; returns</a></li>
+          <li><a href="#">Track an order</a></li>
+          <li><a href="#">Contact us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Meridian Marketplace, Inc. All rights reserved.</p>
+      <div class="lang-select">🌐 English (US) · USD $</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
